@@ -36,10 +36,12 @@ prt_1level_power <- function(N = NULL, delta = 0.20, alpha = 0.05, rho = 0) {
 # rho: proportion of variance explained by covariate
 # B: percent of variance explained by blocking
 # s2_delta
-# var_type: can calculate power for estimate of treatment effect or variance
-# estimate: "est", variance: "var"
 prt_multisite_power <- function(n, J, delta, s2_delta, alpha = 0.05,
-                                B = 0, rho = 0, var_type = "est") {
+                                B = 0, rho = 0) {
+
+  # TODO:
+  # - add support for fixed effect models
+  # - add support for computing power for treatment effect testing
 
   # update for percent of variance explained by blocking
   delta = delta/sqrt(1 - B)
