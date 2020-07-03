@@ -9,3 +9,5 @@ Description: Provides tools for designing person randomized, cluster randomized,
 License: don't know yet
 Encoding: UTF-8
 LazyData: true
+Suggests:
+    ggplot2
