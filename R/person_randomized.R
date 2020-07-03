@@ -6,7 +6,7 @@
 # delta: standardized effect size, (mu_A - mu_0)/sigma
 # alpha: type 1 error rate
 # rho: proportion of variation explained by a covariate
-prt_1level_power  <- function(N = NULL, delta = 0.20, alpha = 0.05, rho = 0) {
+prt_1level_power <- function(N = NULL, delta = 0.20, alpha = 0.05, rho = 0) {
 
   if (is.null(N)) {
     print("Error: Please specify a sample size for prt_1level_power.")
@@ -25,5 +25,31 @@ prt_1level_power  <- function(N = NULL, delta = 0.20, alpha = 0.05, rho = 0) {
   # power calculation
   power = 1-pf(qf(1 - alpha,  1, df2), 1, df2, lam)
 
+  return(power)
+}
+
+# computes power for a multisite trial
+# n: number of subjects per site
+# J: number of sites
+# delta: standardized effect size: treatment effect / between persons variance
+# tau: variability between sites on the treatment effect
+# rho: proportion of variance explained by covariate
+# B: percent of variance explained by blocking
+# s2_delta
+# var_type: can calculate power for estimate of treatment effect or variance
+# estimate: "est", variance: "var"
+prt_multisite_power <- function(n, J, delta, s2_delta, alpha = 0.05,
+                                B = 0, var_type = "est") {
+
+  # update for percent of variance explained by blocking
+  delta = delta/sqrt(1-B)
+  s2_delta = s2_delta/(1-B)
+
+  # NCP
+  lam = (J * delta^2)/(s2_delta + 4/n)
+
+  # power calculation
+  df2 = J-1
+  power = 1-pf(qf(1 - alpha,  1, df2), 1, df2, lam)
   return(power)
 }
