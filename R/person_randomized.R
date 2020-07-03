@@ -39,11 +39,15 @@ prt_1level_power <- function(N = NULL, delta = 0.20, alpha = 0.05, rho = 0) {
 # var_type: can calculate power for estimate of treatment effect or variance
 # estimate: "est", variance: "var"
 prt_multisite_power <- function(n, J, delta, s2_delta, alpha = 0.05,
-                                B = 0, var_type = "est") {
+                                B = 0, rho = 0, var_type = "est") {
 
   # update for percent of variance explained by blocking
-  delta = delta/sqrt(1-B)
-  s2_delta = s2_delta/(1-B)
+  delta = delta/sqrt(1 - B)
+  s2_delta = s2_delta/(1 - B)
+
+  # update for proportion of variance explained by covariate
+  delta = delta/sqrt(1 - rho)
+  s2_delta = s2_delta/(1 - rho)
 
   # NCP
   lam = (J * delta^2)/(s2_delta + 4/n)
