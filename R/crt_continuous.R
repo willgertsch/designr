@@ -7,7 +7,7 @@
 # icc: intra-class correlation coefficient
 # alpha: significance level
 # R2: proportion of explained variation by covariate
-crt_level2_power <- function(n, J, delta, icc, alpha = 0.05, R2 = 0) {
+crt_2level_power <- function(n, J, delta, icc, alpha = 0.05, R2 = 0) {
 
 
   # NCP
@@ -23,3 +23,4 @@ crt_level2_power <- function(n, J, delta, icc, alpha = 0.05, R2 = 0) {
   power = 1-pf(qf(1 - alpha,  1, df2), 1, df2, lam)
   return(power)
 }
+
